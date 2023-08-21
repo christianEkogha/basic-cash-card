@@ -16,37 +16,27 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeHttpRequests()
-		.requestMatchers("/cashcards/**")
-		.hasRole("CARD-OWNER")
-//		.authenticated()
-		.and().csrf().disable()
-		.httpBasic();
+		httpSecurity.authorizeHttpRequests().requestMatchers("/cashcards/**").hasRole("CARD-OWNER").and().csrf()
+				.disable().httpBasic();
 		return httpSecurity.build();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public UserDetailsService testOnlyUsers(PasswordEncoder passwordEncoder) {
 		User.UserBuilder users = User.builder();
-		UserDetails christianDetails = users.username("christian")
-				.password(passwordEncoder.encode("abc123"))
-				.roles("CARD-OWNER")
-				.build();
+		UserDetails christianDetails = users.username("christian").password(passwordEncoder.encode("abc123"))
+				.roles("CARD-OWNER").build();
 
 		UserDetails hanksDetails = users.username("hanks-owns-no-cards")
-				.password(passwordEncoder.encode("hankspassword"))
-				.roles("NON-OWNER")
-				.build();
-		
-		UserDetails karlDetails = users.username("karl")
-				.password(passwordEncoder.encode("karlpassword"))
-				.roles("CARD-OWNER")
-				.build();
+				.password(passwordEncoder.encode("hankspassword")).roles("NON-OWNER").build();
+
+		UserDetails karlDetails = users.username("karl").password(passwordEncoder.encode("karlpassword"))
+				.roles("CARD-OWNER").build();
 		return new InMemoryUserDetailsManager(christianDetails, hanksDetails, karlDetails);
 	}
 }
