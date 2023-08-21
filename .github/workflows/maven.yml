@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: java code compliancy
-    - uses: github/checkstyle/google-java-format@v10
+      uses: github/checkstyle/google-java-format@v10
       env:
         DEFAULT_BRANCH: main
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
