@@ -35,6 +35,7 @@ jobs:
   code-compliancy:
     runs-on: ubuntu-latest    
     steps:
+    - uses: actions/checkout@v3
     - uses: super-linter/super-linter@v5
       env:
         DEFAULT_BRANCH: main
