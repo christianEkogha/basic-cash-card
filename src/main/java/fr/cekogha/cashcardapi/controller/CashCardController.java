@@ -31,7 +31,7 @@ public class CashCardController {
 		this.repository = repository;
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/{ id }")
 	public ResponseEntity<CashCard> findById(@PathVariable("id") Long id, Principal principal){
 		CashCard cashCard = findCashCard(id, principal);
 		if(cashCard != null)
